@@ -13,12 +13,8 @@ class Frame2seqRunner():
     Wrapper for Frame2seq predictions.
     """
 
-    def __init__(self):
-
-        self.device = torch.device(
-            "cuda:0" if torch.cuda.is_available() else "cpu")
-        print(f"Using device: {self.device}")
-
+    def __init__(self, device=torch.device('cuda')):
+        self.device = device
         module_path = os.path.abspath(__file__)
         globals()['__file__'] = module_path
         project_path = os.path.dirname(os.path.abspath(__file__))
@@ -27,11 +23,10 @@ class Frame2seqRunner():
         self.models = []
         model_ckpts = glob(os.path.join(trained_models_dir, '*.ckpt'))
         for ckpt_file in model_ckpts:
-            print(f"Loading {ckpt_file}...")
             self.models.append(
                 frame2seq.load_from_checkpoint(ckpt_file).eval().to(
                     self.device))
-
+        print(f"{len(self.models)} models are loaded from {trained_models_dir}/*.ckpt")
         self.save_dir = os.path.join(os.getcwd(), 'frame2seq_outputs')
         os.makedirs(self.save_dir, exist_ok=True)
 

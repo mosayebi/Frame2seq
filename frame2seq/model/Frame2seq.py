@@ -129,7 +129,7 @@ class frame2seq(pl.LightningModule):
                 s = transition(s)
 
             if edge_transition is not None:
-                z = checkpoint(edge_transition, s, z)
+                z = checkpoint(edge_transition, s, z, use_reentrant=False)
 
         pred_seq = self.single_to_sequence(s)
 

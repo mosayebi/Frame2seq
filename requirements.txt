@@ -1,7 +1,7 @@
-torch==2.1.1
-biopython==1.82
+torch
+biopython
 einops==0.7.0
 pytorch-lightning==2.1.3
-scipy==1.11.4
+scipy #==1.11.4
 dm-tree==0.1.8
-pandas==2.1.4
+pandas #==2.2.0
